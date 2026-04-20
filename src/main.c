@@ -13,6 +13,7 @@ static struct Scene *D_03000084;
 static s32 D_03000088;
 
 
+
 // Default Interrupt Procedure (Do Nothing)
 void interrupt_default(void) {
 }

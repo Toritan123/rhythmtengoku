@@ -148,11 +148,16 @@ SECTIONS {
         build/src/midi/random.c.o(.bss);
         build/src/midi/psg.c.o(.bss);
         build/src/midi/player.c.o(.bss);
+        build/asm/player_data.s.o(.bss);
         build/src/lib_sram.c.o(.bss);
         build/src/lib_0804ca80.c.o(.bss);
         build/src/lib_0804e564.c.o(.bss);
     }
-    
+
+    .common_data (NOLOAD) : SUBALIGN(4) {
+        build/src/global.c.o(.common_data);
+    }
+
     . = 0x08000000;
     .cartrom . : AT(__romPos) SUBALIGN(4) {
         build/asm/rom_header.s.o(.text);
@@ -299,6 +304,7 @@ SECTIONS {
         build/src/midi/random.c.o(.text);
         build/src/midi/psg.c.o(.text);
         build/src/midi/player.c.o(.text);
+        build/asm/player_data.s.o(.text);
         build/asm/libagbsyscall.s.o(.text);
         build/src/lib_sram.c.o(.text);
         build/src/lib_0804ca80.c.o(.text);
@@ -1199,6 +1205,7 @@ SECTIONS {
         build/audio/instruments.c.o(.data);
         build/audio/songs.c.o(.data);
         build/src/midi/player.c.o(.data);
+        build/asm/player_data.s.o(.data);
         build/audio/sample_table.json.s.o(.data);
 
         build/audio/sequences/Lesson1.mid.o(.rodata*);

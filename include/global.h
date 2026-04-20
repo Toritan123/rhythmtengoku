@@ -42,6 +42,8 @@ typedef s32 s24_8;
 
 #define ARRAY_COUNT(a) (s32)(sizeof(a))/sizeof((a)[0])
 
+#define COMMON_DATA __attribute__((section(".common_data"), aligned(4)))
+
 #include "gba/gba.h"
 #include "types.h"
 #include "sequence_data.h"
