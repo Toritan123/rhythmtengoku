@@ -11,3 +11,5 @@ tools/decomp-permuter/
 *.dump
 .vscode/*
 ctx.c
+# macOS
+.DS_Store
