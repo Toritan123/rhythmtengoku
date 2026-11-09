@@ -13,3 +13,10 @@ tools/decomp-permuter/
 ctx.c
 # macOS
 .DS_Store
+
+# Assets extracted from baserom.gba by tools/extract_assets.py
+*.wav
+*.mid
+*.bin
+*.4bpp
+*.tilemap

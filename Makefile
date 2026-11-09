@@ -17,6 +17,15 @@ ifneq ($(shell sha1sum -t baserom.gba), $(BASEROM_SHA1)  baserom.gba)
     $(error Provided ROM is not correct)
 endif
 
+# Extract any missing graphics, audio and binary assets from the ROM
+EXTRACT_OUTPUT := $(shell python3 tools/extract_assets.py 2>&1 || echo EXTRACT_FAILED)
+ifneq (,$(findstring EXTRACT_FAILED,$(EXTRACT_OUTPUT)))
+    $(error Asset extraction failed: $(subst EXTRACT_FAILED,,$(EXTRACT_OUTPUT)))
+endif
+ifneq (,$(EXTRACT_OUTPUT))
+    $(info $(EXTRACT_OUTPUT))
+endif
+
 SHELL := /bin/bash
 
 CPP := $(CC) -E
@@ -141,7 +150,7 @@ INCLUDE	:=	-I $(foreach dir,$(INCLUDES),$(wildcard $(dir)/*.h)) \
 			-I $(CURDIR)/$(BUILD)
 
 #---------------------------------------------------------------------------------
-.PHONY: default clean distclean rebuild
+.PHONY: default extract clean distclean rebuild
 .SECONDARY:
 #---------------------------------------------------------------------------------
 
@@ -157,6 +166,12 @@ default: $(OUTPUT).gba
 			echo "The build succeeded, but did not match the official ROM."; \
 		fi; \
 	fi \
+
+#---------------------------------------------------------------------------------
+
+# Assets are extracted while the Makefile is parsed, so there is nothing left to do
+extract:
+	@true
 
 #---------------------------------------------------------------------------------
 

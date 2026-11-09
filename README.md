@@ -71,6 +71,8 @@ After this, navigate to the agbcc directory with `cd ~/agbcc` and build the comp
 
 Lastly, you will need to acquire an unmodified rev0 Rhythm Tengoku ROM in order to build the decomp. This ROM is not provided, and you must source it yourself. Once you obtain this ROM, rename it to `baserom.gba` and place it in the `rt` directory.
 
+Graphics, audio and binary assets are not stored in the repository. They are extracted from the ROM into their usual folders by `tools/extract_assets.py`, using the offsets listed in `tools/asset_offsets.json`. This happens automatically the first time you run `make`, or you can extract them without building by running `make extract` (or `python3 tools/extract_assets.py`). A few revision 1 only assets are extracted from `baserom_rev1.gba` if it is present. If you add or rename assets, rebuild with every asset present and run `python3 tools/gen_asset_offsets.py` to update the offsets.
+
 
 #### Building the ROM
 
